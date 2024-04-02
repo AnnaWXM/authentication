@@ -31,8 +31,37 @@ const favoriteBlog = (blogs) => {
     };
   };
 
+const topAuthor = (blogs) => {
+  if (blogs.length === 0) {
+    return "Error: the bloger list is empty";
+  }
+  const blogCountByAuthor = {}
+  blogs.forEach(blog => {
+    if (blog.author in blogCountByAuthor) {
+      blogCountByAuthor[blog.author]++;
+    } else {
+      blogCountByAuthor[blog.author] = 1;
+    }
+  })
+  let maxAuthor = null;
+  let authorNumber = 0;
+  for (const author in blogCountByAuthor) {
+    if (blogCountByAuthor[author] > authorNumber) {
+      authorNumber = blogCountByAuthor[author];
+      maxAuthor = author;
+    }
+  }
+
+  return {
+    author: maxAuthor,
+    blogs: authorNumber
+  }
+}
+
+
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    topAuthor
 }

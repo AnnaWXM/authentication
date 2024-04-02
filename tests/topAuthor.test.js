@@ -3,7 +3,7 @@ const assert = require('node:assert')
 const listHelper = require('../utils/list_helper')
 
 
-describe('favorite blog', () => {
+describe('top author', () => {
 
     const emptyBlog = []
 
@@ -46,25 +46,17 @@ describe('favorite blog', () => {
       ]
 
     test('of empty list is error message', () => {
-        const result = listHelper.favoriteBlog(emptyBlog)
+        const result = listHelper.topAuthor(emptyBlog)
         assert.strictEqual(result, "Error: the bloger list is empty")
     })
 
     test('when list has only one blog, return the blog', () => {
-      const result = listHelper.favoriteBlog(listWithOneBlog)
-      assert.deepStrictEqual(result, {
-        title: "Go To Statement Considered Harmful",
-        author: "Edsger W. Dijkstra",
-        likes: 5
-      })
+      const result = listHelper.topAuthor(listWithOneBlog)
+      assert.strictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 1 })
     })
 
     test('of a list return the biggest likes one', () => {
-        const result = listHelper.favoriteBlog(list)
-        assert.deepStrictEqual(result, {
-            title: "Canonical string reduction",
-            author: "Edsger W. Dijkstra",
-            likes: 12
-          })
+        const result = listHelper.topAuthor(list)
+        assert.strictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 2 })
     })
   })
