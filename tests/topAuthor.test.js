@@ -52,11 +52,11 @@ describe('top author', () => {
 
     test('when list has only one blog, return the blog', () => {
       const result = listHelper.topAuthor(listWithOneBlog)
-      assert.strictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 1 })
+      assert.deepStrictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 1 })
     })
 
     test('of a list return the biggest likes one', () => {
         const result = listHelper.topAuthor(list)
-        assert.strictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 2 })
+        assert.deepStrictEqual(result, { author: 'Edsger W. Dijkstra', blogs: 2 })
     })
   })
