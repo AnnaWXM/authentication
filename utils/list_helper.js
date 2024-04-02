@@ -13,7 +13,26 @@ const totalLikes = (blogs) => {
     return total
 }
 
+const favoriteBlog = (blogs) => {
+    if (blogs.length === 0) {
+      return "the bloger list is empty"; // Return null if the list of blogs is empty
+    }
+
+    // Find the blog with the maximum number of likes
+    const favorite = blogs.reduce((prev, current) => {
+      return (prev.likes > current.likes) ? prev : current;
+    });
+
+    // Return the blog with the maximum likes
+    return {
+      title: favorite.title,
+      author: favorite.author,
+      likes: favorite.likes
+    };
+  };
+
 module.exports = {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog
 }
