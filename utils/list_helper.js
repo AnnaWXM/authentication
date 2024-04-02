@@ -15,7 +15,7 @@ const totalLikes = (blogs) => {
 
 const favoriteBlog = (blogs) => {
     if (blogs.length === 0) {
-      return "the bloger list is empty"; // Return null if the list of blogs is empty
+      return "Error: the bloger list is empty"; // Return null if the list of blogs is empty
     }
 
     // Find the blog with the maximum number of likes
