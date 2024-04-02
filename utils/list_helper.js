@@ -15,15 +15,13 @@ const totalLikes = (blogs) => {
 
 const favoriteBlog = (blogs) => {
     if (blogs.length === 0) {
-      return "Error: the bloger list is empty"; // Return null if the list of blogs is empty
+      return "Error: the bloger list is empty";
     }
 
-    // Find the blog with the maximum number of likes
     const favorite = blogs.reduce((prev, current) => {
       return (prev.likes > current.likes) ? prev : current;
     });
 
-    // Return the blog with the maximum likes
     return {
       title: favorite.title,
       author: favorite.author,
@@ -58,10 +56,37 @@ const topAuthor = (blogs) => {
   }
 }
 
+const mostLikes = (blogs) => {
+    if (blogs.length === 0) {
+        return "Error: the bloger list is empty";
+    }
+    const likesForAuthors = {}
+    blogs.forEach(blog => {
+        if (blog.author in likesForAuthors) {
+            likesForAuthors[blog.author]+= blog.likes || 0
+        } else {
+            likesForAuthors[blog.author] = blog.likes || 0
+        }
+      })
+      let topAuthor = null;
+      let likes = 0;
+      for (const author in likesForAuthors) {
+        if (likesForAuthors[author] > likes) {
+            likes = likesForAuthors[author]
+            topAuthor = author
+        }
+    }
+    return{
+        author: topAuthor,
+        likes: likes
+    }
+}
+
 
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    topAuthor
+    topAuthor,
+    mostLikes
 }
