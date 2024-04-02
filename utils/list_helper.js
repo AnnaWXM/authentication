@@ -4,6 +4,16 @@ const dummy = (blogs) => {
     return res
 }
 
+const totalLikes = (blogs) => {
+    let total = 0
+    blogs.forEach(blog => {
+        total += blog.likes || 0;
+    });
+
+    return total
+}
+
 module.exports = {
-    dummy
+    dummy,
+    totalLikes
 }
