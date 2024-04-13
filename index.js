@@ -63,8 +63,8 @@ app.delete('/api/blogs/:id', async (request, response) => {
 app.post('/api/blogs', async(request, response) => {
   mongoose.connect(connectionStr, {})
   const body = request.body
-  console.log(request.body)
-  if (!body.title || !body.author || !body.url) {
+
+  if (!body.title || !body.author || !body.url || !body._id) {
     return response.status(400).json({
       error: 'information missing'
     })
@@ -76,9 +76,11 @@ app.post('/api/blogs', async(request, response) => {
     url:body.url,
     likes:0
   })
+
   blog.save().then(result => {
-      response.json(result)
+      response.status(201).json(result)
     })
+
 })
 
 app.use((err, req, res, next) => {
