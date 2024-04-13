@@ -78,6 +78,17 @@ describe('Blogs api test', () => {
     assert.strictEqual(createResponse.status, 400)
   });
 
+
+  test('update blog likes', async () => {
+    const updatedBlogResponse = await api.patch('/api/blogs/222').send({likes:20})
+    assert.strictEqual(updatedBlogResponse.status, 200)
+    const updatedResponse = await api.get('/api/blogs/222')
+    const likes = updatedResponse.body.likes
+
+    assert.strictEqual(likes, 20)
+  })
+
+
   test('deletes blog', async () => {
     const response = await api.get('/api/blogs')
     const initialCount = response.body.length

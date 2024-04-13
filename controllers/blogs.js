@@ -65,4 +65,22 @@ blogsRouter.put('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
+blogsRouter.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { likes } = req.body;
+
+  try {
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog post not found' });
+    }
+    blog.likes = likes;
+    const updatedBlog = await blog.save();
+    res.status(200).json(updatedBlog);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = blogsRouter
