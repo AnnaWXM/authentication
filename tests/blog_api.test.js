@@ -47,6 +47,37 @@ describe('Blogs api test', () => {
     assert.strictEqual(updatedBlogCount, blogCount +1 );
   });
 
+  test('missing like property will fail', async () => {
+    const response = await api.get('/api/blogs')
+    const blogCount = response.body.length
+
+    const newBlog = {
+      _id: '222',
+      title: 'a new blog',
+      author: 'author',
+      url: 'https://new_bolg_url/test'
+    }
+
+    const createResponse = await api.post('/api/blogs').send(newBlog)
+
+    assert.notEqual(createResponse.status, 201)
+  });
+
+  test('missing title/url property will return 400', async () => {
+    const response = await api.get('/api/blogs')
+    const blogCount = response.body.length
+
+    const newBlog = {
+      _id: '3333',
+      author: 'author',
+      likes: 0
+    }
+
+    const createResponse = await api.post('/api/blogs').send(newBlog)
+
+    assert.strictEqual(createResponse.status, 400)
+  });
+
   test('deletes blog', async () => {
     const response = await api.get('/api/blogs')
     const initialCount = response.body.length

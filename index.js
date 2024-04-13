@@ -69,6 +69,7 @@ app.post('/api/blogs', async(request, response) => {
       error: 'information missing'
     })
   }
+
   const blog = new Blog({
     _id: body._id,
     title: body.title,

@@ -21,7 +21,11 @@ blogsRouter.get('/:id', (request, response, next) => {
 
 blogsRouter.post('/', (request, response, next) => {
   const body = request.body
-  console.log(body);
+  if (!body.title || !body.author || !body.url || !body._id) {
+    return response.status(400).json({
+      error: 'information missing'
+    })
+  }else {
 
   const blog = new Blog({
     _id: body._id,
@@ -36,6 +40,7 @@ blogsRouter.post('/', (request, response, next) => {
       response.status(201).json(savedBlog)
     })
     .catch(error => next(error))
+  }
 })
 
 blogsRouter.delete('/:id', (request, response, next) => {
