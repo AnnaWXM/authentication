@@ -16,3 +16,12 @@ content-Type: application/json
   "likes": 10,
   "userId":"661bb096ffc6efb5bf7503a2"
 }
+
+###
+POST http://localhost:3003/api/login HTTP/1.1
+content-Type: application/json
+
+{
+  "username": "hellas",
+  "password": "hellas"
+}
