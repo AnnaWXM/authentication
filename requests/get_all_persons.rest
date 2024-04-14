@@ -5,11 +5,14 @@ DELETE http://localhost:3003/api/users/1
 
 
 ###
-POST http://localhost:3003/api/users HTTP/1.1
+POST http://localhost:3003/api/blogs HTTP/1.1
 content-Type: application/json
 
 {
-    "username": "hellas",
-    "name": "Arto Hellas",
-    "password": "hellas"
+  "_id":"443",
+  "title": "test title",
+  "author": "test author",
+  "url": "test url",
+  "likes": 10,
+  "userId":"661bb096ffc6efb5bf7503a2"
 }

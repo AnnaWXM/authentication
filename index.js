@@ -75,7 +75,12 @@ app.post('/api/blogs', async(request, response) => {
     title: body.title,
     author: body.author,
     url:body.url,
-    likes:0
+    likes:0,
+    user : {
+      username: body.username,
+      name: body.name,
+      _id: body.userId
+    }
   })
 
   blog.save().then(result => {

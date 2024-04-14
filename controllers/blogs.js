@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user').User
 
 blogsRouter.get('/', (request, response) => {
     Blog.find({}).then(blogs => {
@@ -19,20 +20,22 @@ blogsRouter.get('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-blogsRouter.post('/', (request, response, next) => {
+blogsRouter.post('/', async(request, response, next) => {
   const body = request.body
+  const existingUser = await User.findOne({_id: body.userId})
   if (!body.title || !body.author || !body.url || !body._id) {
     return response.status(400).json({
       error: 'information missing'
     })
   }else {
-
+try{
   const blog = new Blog({
     _id: body._id,
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes
+    likes: body.likes,
+    user: existingUser
   })
 
   blog.save()
@@ -41,6 +44,10 @@ blogsRouter.post('/', (request, response, next) => {
     })
     .catch(error => next(error))
   }
+  catch(err){
+    console.error(err)
+  }
+}
 })
 
 blogsRouter.delete('/:id', (request, response, next) => {
