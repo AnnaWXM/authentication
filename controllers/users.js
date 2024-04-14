@@ -20,16 +20,16 @@ usersRouter.post('/', async (request, response) => {
 })
 
 usersRouter.get('/', (request, response) => {
-  Blog.find({}).then(blogs => {
-  response.json(blogs)
+  User.find({}).then(users => {
+  response.json(users)
 })
 })
 
 usersRouter.get('/:id', (request, response, next) => {
-  Blog.findById(request.params.id)
-  .then(blog => {
-    if (blog) {
-      response.json(blog)
+  User.findById(request.params.id)
+  .then(user => {
+    if (user) {
+      response.json(user)
     } else {
       response.status(404).end()
     }
@@ -38,7 +38,7 @@ usersRouter.get('/:id', (request, response, next) => {
 })
 
 usersRouter.delete('/:id', (request, response, next) => {
-  Blog.findByIdAndDelete(request.params.id)
+  User.findByIdAndDelete(request.params.id)
   .then(() => {
     response.status(204).end()
   })
@@ -48,13 +48,13 @@ usersRouter.delete('/:id', (request, response, next) => {
 usersRouter.put('/:id', (request, response, next) => {
 const body = request.body
 
-const blog = {
+const user = {
   content: body.content,
 }
 
-Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-  .then(updatedBlog => {
-    response.json(updatedBlog)
+User.findByIdAndUpdate(request.params.id, user, { new: true })
+  .then(updatedUser => {
+    response.json(updatedUser)
   })
   .catch(error => next(error))
 })
@@ -64,14 +64,14 @@ const { id } = req.params;
 const { likes } = req.body;
 
 try {
-  const blog = await Blog.findById(id);
+  const user = await User.findById(id);
 
-  if (!blog) {
-    return res.status(404).json({ error: 'Blog post not found' });
+  if (!user) {
+    return res.status(404).json({ error: 'User post not found' });
   }
-  blog.likes = likes;
-  const updatedBlog = await blog.save();
-  res.status(200).json(updatedBlog);
+  user.likes = likes;
+  const updatedUser = await user.save();
+  res.status(200).json(updatedUser);
 } catch (error) {
   res.status(500).json({ error: 'Internal server error' });
 }
